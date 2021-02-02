@@ -119,10 +119,13 @@ client.on('message', async msg => {
         const command = args.shift().toLowerCase();
         if (command === '') {
             if (!args.length) {
+                let response = await fetch(url);
+                let json = await response.json();
+                //msg.channel.send(json.results[0].url);
                 const embed = new Discord.MessageEmbed()
                     .setColor('#ff0000')
                     .setAuthor('Gif', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
-                    .addFields({ name: 'Error: ', value: 'You must include a gif name' })
+                    .addFields({ name: 'Error: ', value: json.results[0].url })
                     .setTimestamp()
                     .setFooter('Mera Bot By Basim');
                 msg.channel.send(embed);
@@ -130,7 +133,7 @@ client.on('message', async msg => {
         } else {
             let response = await fetch(url);
             let json = await response.json();
-            console.log(json);
+            msg.channel.send(json.results[0].url);
             const embed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setAuthor('Gif', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
