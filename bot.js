@@ -1,10 +1,6 @@
 require('dotenv').config()
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var search = require('youtube-search');
-const ytdl = require("ytdl-core");
-const queue = new Map();
-const fetch = require('node-fetch');
 
 client.login(process.env.BOTTOKEN);
 
@@ -113,35 +109,57 @@ client.on('message', async msg => {
             msg.channel.send(embed);
         }
     }
-    if (msg.content.startsWith('bot gif')) {
-        let url = `https://api.tenor.com/v1/search?q=laugh&key=${process.env.TENORKEY}&limit=8`
-        const args = msg.content.slice(7).trim().split(' ');
-        const command = args.shift().toLowerCase();
-        if (command === '') {
-            if (!args.length) {
-                let response = await fetch(url);
-                let json = await response.json();
-                //msg.channel.send(json.results[0].url);
-                const embed = new Discord.MessageEmbed()
-                    .setColor('#ff0000')
-                    .setAuthor('Gif', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
-                    .addFields({ name: 'Error: ', value: json.results[0].url })
-                    .setTimestamp()
-                    .setFooter('Mera Bot By Basim');
-                msg.channel.send(embed);
-            }
-        } else {
-            let response = await fetch(url);
-            let json = await response.json();
-            msg.channel.send(json.results[0].url);
-            const embed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
-                .setAuthor('Gif', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
-                .addFields({ name: 'GIF: ', value: json.results[0].url })
-                .setTimestamp()
-                .setFooter('Mera Bot By Basim');
-            msg.channel.send(embed);
-        }
-    }
-
 });
+client.on('message', async(message) => {
+    if (message.content === 'bot logs') {
+        const logs = message.guild.channels.cache.find(channel => channel.name === "logs");
+        if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
+            message.guild.createChannel('logs', 'text');
+        }
+        if (!message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
+            console.log('The logs channel does not exist and tried to create the channel but I am lacking permissions')
+        }
+        var entry = await message.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.array())
+        var i = 0;
+        const d2 = new Date();
+        date2 = d2.toDateString(); // current date
+
+        message.channel.send('========DISCONNECT LOGS========');
+        while (entry[i]) {
+            if (entry[i].action == 'MEMBER_DISCONNECT') {
+                var d1 = new Date(entry[i].createdTimestamp);
+                date1 = d1.toDateString();
+                if (date1 == date2) {
+                    const embed = new Discord.MessageEmbed()
+                        .setColor('#0099ff')
+                        .setAuthor('Disconnect Logs', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                        .addFields({ name: 'Logs', value: (`${entry[i].executor.username} disconneted a user`) })
+                        .setTimestamp(entry[i].createdTimestamp)
+                        .setFooter('Mera Bot By Basim');
+                    message.channel.send(embed);
+                }
+            }
+            i++;
+        }
+        entry = await message.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.array())
+        i = 0;
+        message.channel.send('========MOVE LOGS========');
+        while (entry[i]) {
+            if (entry[i].action == 'MEMBER_MOVE') {
+                d1 = new Date(entry[i].createdTimestamp);
+                date1 = d1.toDateString();
+                if (date1 == date2) {
+                    const embed = new Discord.MessageEmbed()
+                        .setColor('#0099ff')
+                        .setAuthor('Move Logs', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                        .addFields({ name: 'Logs', value: (`${entry[i].executor.username} moved a user to ${entry[i].extra.channel.name}`) })
+                        .setTimestamp(entry[i].createdTimestamp)
+                        .setFooter('Mera Bot By Basim');
+                    message.channel.send(embed);
+                }
+                i++;
+            }
+        }
+        message.channel.send('========END LOGS========');
+    }
+})
