@@ -124,7 +124,7 @@ client.on('message', async(message) => {
         const d2 = new Date();
         date2 = d2.toDateString(); // current date
 
-        message.channel.send('========DISCONNECT LOGS========');
+        message.channel.send('`========DISCONNECT LOGS========`');
         while (entry[i]) {
             if (entry[i].action == 'MEMBER_DISCONNECT') {
                 var d1 = new Date(entry[i].createdTimestamp);
@@ -133,7 +133,7 @@ client.on('message', async(message) => {
                     const embed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setAuthor('Disconnect Logs', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
-                        .addFields({ name: 'Logs', value: (`${entry[i].executor.username} disconneted a user`) })
+                        .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} disconneted a user\``) })
                         .setTimestamp(entry[i].createdTimestamp)
                         .setFooter('Mera Bot By Basim');
                     message.channel.send(embed);
@@ -143,7 +143,7 @@ client.on('message', async(message) => {
         }
         entry = await message.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.array())
         i = 0;
-        message.channel.send('========MOVE LOGS========');
+        message.channel.send('`========MOVE LOGS========`');
         while (entry[i]) {
             if (entry[i].action == 'MEMBER_MOVE') {
                 d1 = new Date(entry[i].createdTimestamp);
@@ -152,7 +152,7 @@ client.on('message', async(message) => {
                     const embed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setAuthor('Move Logs', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
-                        .addFields({ name: 'Logs', value: (`${entry[i].executor.username} moved a user to ${entry[i].extra.channel.name}`) })
+                        .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} moved a user to ${entry[i].extra.channel.name}\``) })
                         .setTimestamp(entry[i].createdTimestamp)
                         .setFooter('Mera Bot By Basim');
                     message.channel.send(embed);
@@ -160,6 +160,25 @@ client.on('message', async(message) => {
                 i++;
             }
         }
-        message.channel.send('========END LOGS========');
+        message.channel.send('`========END LOGS========`');
+    }
+});
+//// RPS
+client.on('message', msg => {
+    if (msg.content.startsWith('bot rps')) {
+        const taggedUser = msg.mentions.users.first();
+        console.log(msg.author);
+        console.log(taggedUser);
+        //msg.taggedUser.send('Rock/Paper/Scissors');
+        msg.author.send('Rock/Paper/Scissors');
+    }
+    if (msg.content == 'rock' || msg.content == 'Rock') {
+        msg.reply('bot says: rock');
+    }
+    if (msg.content == 'paper' || msg.content == 'Paper') {
+        msg.reply('bot says: paper');
+    }
+    if (msg.content == 'scissors' || msg.content == 'Scissors') {
+        msg.reply('bot says: Scissors');
     }
 })
