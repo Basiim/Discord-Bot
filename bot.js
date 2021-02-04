@@ -76,7 +76,7 @@ client.on('message', async msg => {
             result = 'Tails';
         const embed = new Discord.MessageEmbed()
             .setColor('#0099ff')
-            .setAuthor('Coinflip', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
+            .setAuthor('Coinflip', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
             .addFields({ name: 'Coinflip Result: ', value: result })
             .setTimestamp()
             .setFooter('Mera Bot By Basim');
@@ -90,7 +90,7 @@ client.on('message', async msg => {
             if (!args.length) {
                 const embed = new Discord.MessageEmbed()
                     .setColor('#ff0000')
-                    .setAuthor('Magic 8Ball', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                    .setAuthor('Magic 8Ball', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
                     .addFields({ name: 'Error: ', value: 'You must include a statement.' })
                     .setTimestamp()
                     .setFooter('Mera Bot By Basim');
@@ -102,14 +102,40 @@ client.on('message', async msg => {
 
             const embed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
-                .setAuthor('Magic 8Ball', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                .setAuthor('Magic 8Ball', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
                 .addFields({ name: 'Magic 8ball Says: ', value: result })
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             msg.channel.send(embed);
         }
     }
+    if (msg.content === 'bot server info') {
+        const embed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setAuthor('Server Info', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+            .setImage(msg.guild.iconURL)
+            .setDescription(`${msg.guild}'s information`)
+            .addField("Owner", `${msg.guild.owner}`)
+            .addField("Member Count", `${msg.guild.memberCount} members`)
+            .addField("Roles", `${msg.guild.roles.cache.size} roles`)
+            .setFooter('Mera Bot By Basim');
+        msg.channel.send(embed);
+    }
+    if (msg.content === 'bot my info') {
+        var d1 = new Date(msg.author.createdTimestamp);
+        date = d1.toDateString();
+        const embed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setAuthor('User Info', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+            .setThumbnail(msg.author.avatarURL)
+            .setDescription(`${msg.author}'s information`)
+            .addField("Username", `${msg.author.tag}`)
+            .addField("Account created:", `${date}`)
+            .setFooter('Mera Bot By Basim');
+        msg.channel.send(embed);
+    }
 });
+/// Logs
 client.on('message', async(message) => {
     if (message.content === 'bot logs') {
         const logs = message.guild.channels.cache.find(channel => channel.name === "logs");
@@ -132,7 +158,7 @@ client.on('message', async(message) => {
                 if (date1 == date2) {
                     const embed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
-                        .setAuthor('Disconnect Logs', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                        .setAuthor('Disconnect Logs', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
                         .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} disconneted a user\``) })
                         .setTimestamp(entry[i].createdTimestamp)
                         .setFooter('Mera Bot By Basim');
@@ -151,7 +177,7 @@ client.on('message', async(message) => {
                 if (date1 == date2) {
                     const embed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
-                        .setAuthor('Move Logs', 'https://i.imgur.com/zwg237E.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                        .setAuthor('Move Logs', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
                         .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} moved a user to ${entry[i].extra.channel.name}\``) })
                         .setTimestamp(entry[i].createdTimestamp)
                         .setFooter('Mera Bot By Basim');
