@@ -266,8 +266,15 @@ client.on('message', msg => {
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
         }
-        if (firstChoice === 'scissors' && secondChoice == 'rock')
-            client.channels.cache.get('720525837161725982').send(`<@${firstID}> choose ${firstChoice} \n <@${secondID}> choose ${secondChoice} \n\n <@${secondID}> Won!`);
+        if (firstChoice === 'scissors' && secondChoice == 'rock') {
+            const embed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                .addFields({ name: 'Result: ', value: `<@${firstID}> choose ${firstChoice} \n <@${secondID}> choose ${secondChoice} \n\n <@${secondID}> Won!` })
+                .setTimestamp()
+                .setFooter('Mera Bot By Basim');
+            client.channels.cache.get('720525837161725982').send(embed);
+        }
         if (firstChoice === 'paper' && secondChoice == 'rock') {
             const embed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
