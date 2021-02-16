@@ -25,6 +25,7 @@ var ballArray = ['As I see it, yes.',
     'Yes – definitely.',
     'You may rely on it.'
 ];
+var firstID, secondID, firstChoice, secondChoice;
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -68,9 +69,10 @@ client.on('message', async msg => {
         msg.channel.send('yaar kahan ana hai');
     }
     if (msg.content === 'bot coinflip') {
-        var chance = Math.floor((Math.random() * 2) + 1);
+        var chance = Math.floor((Math.random() * 100) + 0);
         var result;
-        if (chance == 1)
+        console.log(chance);
+        if (chance % 2 == 0)
             result = 'Heads';
         else
             result = 'Tails';
@@ -192,19 +194,115 @@ client.on('message', async(message) => {
 //// RPS
 client.on('message', msg => {
     if (msg.content.startsWith('bot rps')) {
-        const taggedUser = msg.mentions.users.first();
-        console.log(msg.author);
-        console.log(taggedUser);
-        //msg.taggedUser.send('Rock/Paper/Scissors');
-        msg.author.send('Rock/Paper/Scissors');
+        const args = msg.content.slice(7).trim().split(' ');
+        const command = args.shift().toLowerCase();
+        if (command === '') {
+            if (!args.length) {
+                const embed = new Discord.MessageEmbed()
+                    .setColor('#ff0000')
+                    .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                    .addFields({ name: 'Error: ', value: 'You must tag another person to play with.' })
+                    .setTimestamp()
+                    .setFooter('Mera Bot By Basim');
+                msg.channel.send(embed);
+            }
+        } else {
+            const taggedUser = msg.mentions.users.first();
+            firstID = msg.author.id;
+            secondID = taggedUser.id;
+            taggedUser.send('Choose Rock/Paper/Scissors');
+            msg.author.send('Choose Rock/Paper/Scissors');
+        }
     }
     if (msg.content == 'rock' || msg.content == 'Rock') {
-        msg.reply('bot says: rock');
+        if (msg.author.id == firstID) {
+            msg.reply('You choose: rock');
+            firstChoice = 'rock';
+        }
+        if (msg.author.id == secondID) {
+            msg.reply('You choose: rock');
+            secondChoice = 'rock';
+        }
+        msg.reply('making a decision...');
     }
     if (msg.content == 'paper' || msg.content == 'Paper') {
-        msg.reply('bot says: paper');
+        if (msg.author.id == firstID) {
+            msg.reply('You choose: paper');
+            firstChoice = 'paper';
+        }
+        if (msg.author.id == secondID) {
+            msg.reply('You choose: paper');
+            secondChoice = 'paper';
+        }
+        msg.reply('making a decision...');
     }
     if (msg.content == 'scissors' || msg.content == 'Scissors') {
-        msg.reply('bot says: Scissors');
+        if (msg.author.id == firstID) {
+            msg.reply('You choose: scissors');
+            firstChoice = 'scissors';
+        }
+        if (msg.author.id == secondID) {
+            msg.reply('You choose: scissors');
+            secondChoice = 'scissors';
+        }
+        msg.reply('making a decision...');
     }
-})
+    if (msg.content == 'making a decision...') {
+        if (firstChoice === secondChoice) {
+            const embed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                .addFields({ name: 'Result: ', value: `Both <@${firstID}> and <@${secondID}> choose ${firstChoice} \n\m Its a Draw!` })
+                .setTimestamp()
+                .setFooter('Mera Bot By Basim');
+            client.channels.cache.get('720525837161725982').send(embed);
+        }
+        if (firstChoice === 'scissors' && secondChoice == 'paper') {
+            const embed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                .addFields({ name: 'Result: ', value: `<@${firstID}> choose ${firstChoice} \n <@${secondID}> choose ${secondChoice} \n\n <@${firstID}> Won!` })
+                .setTimestamp()
+                .setFooter('Mera Bot By Basim');
+            client.channels.cache.get('720525837161725982').send(embed);
+        }
+        if (firstChoice === 'scissors' && secondChoice == 'rock')
+            client.channels.cache.get('720525837161725982').send(`<@${firstID}> choose ${firstChoice} \n <@${secondID}> choose ${secondChoice} \n\n <@${secondID}> Won!`);
+        if (firstChoice === 'paper' && secondChoice == 'rock') {
+            const embed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                .addFields({ name: 'Result: ', value: `<@${firstID}> choose ${firstChoice} \n <@${secondID}> choose ${secondChoice} \n\n <@${firstID}> Won!` })
+                .setTimestamp()
+                .setFooter('Mera Bot By Basim');
+            client.channels.cache.get('720525837161725982').send(embed);
+        }
+        if (firstChoice === 'paper' && secondChoice == 'scissors') {
+            const embed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                .addFields({ name: 'Result: ', value: `<@${firstID}> choose ${firstChoice} \n <@${secondID}> choose ${secondChoice} \n\n <@${secondID}> Won!` })
+                .setTimestamp()
+                .setFooter('Mera Bot By Basim');
+            client.channels.cache.get('720525837161725982').send(embed);
+        }
+        if (firstChoice === 'rock' && secondChoice == 'paper') {
+            const embed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                .addFields({ name: 'Result: ', value: `<@${firstID}> choose ${firstChoice} \n <@${secondID}> choose ${secondChoice} \n\n <@${secondID}> Won!` })
+                .setTimestamp()
+                .setFooter('Mera Bot By Basim');
+            client.channels.cache.get('720525837161725982').send(embed);
+        }
+        if (firstChoice === 'rock' && secondChoice == 'scissors') {
+            const embed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                .addFields({ name: 'Result: ', value: `<@${firstID}> choose ${firstChoice} \n <@${secondID}> choose ${secondChoice} \n\n <@${firstID}> Won!` })
+                .setTimestamp()
+                .setFooter('Mera Bot By Basim');
+            client.channels.cache.get('720525837161725982').send(embed);
+        }
+    }
+});
