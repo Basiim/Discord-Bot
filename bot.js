@@ -252,7 +252,7 @@ client.on('message', msg => {
             const embed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setAuthor('Rock/Paper/Scissors', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
-                .addFields({ name: 'Result: ', value: `Both <@${firstID}> and <@${secondID}> choose ${firstChoice} \n\m Its a Draw!` })
+                .addFields({ name: 'Result: ', value: `Both <@${firstID}> and <@${secondID}> choose ${firstChoice} \n\n Its a Draw!` })
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
