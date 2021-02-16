@@ -256,6 +256,8 @@ client.on('message', msg => {
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
+            firstChoice = null;
+            secondChoice = null;
         }
         if (firstChoice === 'scissors' && secondChoice == 'paper') {
             const embed = new Discord.MessageEmbed()
@@ -265,6 +267,8 @@ client.on('message', msg => {
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
+            firstChoice = null;
+            secondChoice = null;
         }
         if (firstChoice === 'scissors' && secondChoice == 'rock') {
             const embed = new Discord.MessageEmbed()
@@ -274,6 +278,8 @@ client.on('message', msg => {
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
+            firstChoice = null;
+            secondChoice = null;
         }
         if (firstChoice === 'paper' && secondChoice == 'rock') {
             const embed = new Discord.MessageEmbed()
@@ -283,6 +289,8 @@ client.on('message', msg => {
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
+            firstChoice = null;
+            secondChoice = null;
         }
         if (firstChoice === 'paper' && secondChoice == 'scissors') {
             const embed = new Discord.MessageEmbed()
@@ -292,6 +300,8 @@ client.on('message', msg => {
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
+            firstChoice = null;
+            secondChoice = null;
         }
         if (firstChoice === 'rock' && secondChoice == 'paper') {
             const embed = new Discord.MessageEmbed()
@@ -301,6 +311,8 @@ client.on('message', msg => {
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
+            firstChoice = null;
+            secondChoice = null;
         }
         if (firstChoice === 'rock' && secondChoice == 'scissors') {
             const embed = new Discord.MessageEmbed()
@@ -310,6 +322,8 @@ client.on('message', msg => {
                 .setTimestamp()
                 .setFooter('Mera Bot By Basim');
             client.channels.cache.get('720525837161725982').send(embed);
+            firstChoice = null;
+            secondChoice = null;
         }
     }
 });
