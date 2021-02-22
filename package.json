@@ -15,7 +15,7 @@
     },
     "devDependencies": {},
     "scripts": {
-        "start": "concurrently \"node server.js\" \"node bot.js\""
+        "start": "concurrently \"node bot.js\" \"node server.js\""
     },
     "license": "ISC"
 }
