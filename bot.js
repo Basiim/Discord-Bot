@@ -1,9 +1,26 @@
 require('dotenv').config()
+const { Server } = require('discord.io');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.login(process.env.BOTTOKEN);
+/// Server
+const express = require('express');
 
+const app = express();
+const port = process.env.PORT || 5000;
+
+app.use("/Assets/img", express.static(__dirname + "/assets/img"));
+
+app.get("/", function(req, res) {
+    console.log("Index Loaded");
+    res.json("Bot started!");
+});
+app.listen(port, function() {
+    console.log("Server is Live");
+})
+
+/// Bot
+client.login(process.env.BOTTOKEN);
 var ballArray = ['As I see it, yes.',
     'Ask again later.',
     'Better not tell you now.',
@@ -29,6 +46,7 @@ var firstID, secondID, firstChoice, secondChoice;
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+
     client.user.setActivity({
         //status: "online", //You can show online, idle....
         /*game: {
