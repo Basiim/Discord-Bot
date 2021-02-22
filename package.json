@@ -6,6 +6,7 @@
     "author": "Basim",
     "dependencies": {
         "@discordjs/opus": "^0.4.0",
+        "concurrently": "^6.0.0",
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
         "discord.js": "^12.3.1",
         "dotenv": "^8.2.0",
@@ -14,7 +15,7 @@
     },
     "devDependencies": {},
     "scripts": {
-        "start": "node bot.js"
+        "start": "concurrently \"node server.js\" \"node bot.js\""
     },
     "license": "ISC"
 }
