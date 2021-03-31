@@ -344,4 +344,22 @@ client.on('message', msg => {
             secondChoice = null;
         }
     }
+    if (msg.content == 'check jail') {
+        //if (msg.member.voice.channel) {
+        //const connection = msg.member.voice.channel.join();
+        //}
+        const channel = msg.guild.channels.cache.get('783632677793562684');
+        channel.members.forEach(member => {
+            if (member.roles.highest.name == "Jail") {
+                //Rest of your code
+                member.voice.setMute(true);
+                member.voice.setDeaf(true);
+                member.voice.setChannel('826831011227631638');
+            }
+        })
+        setTimeout(function() {
+            client.channels.cache.get('806436951561076736').send("check jail");
+        }, 10000);
+    }
 });
+//// Jail system
