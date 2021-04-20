@@ -204,14 +204,14 @@ client.on('message', async(message) => {
         i = 0;
         message.channel.send('`========UPDATE LOGS========`');
         while (entry[i]) {
-            if (entry[i].action == 'MEMBER_MOVE') {
+            if (entry[i].action == 'MEMBER_UPDATE') {
                 d1 = new Date(entry[i].createdTimestamp);
                 date1 = d1.toDateString();
                 if (date1 == date2) {
                     const embed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
                         .setAuthor('Move Logs', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
-                        .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} moved a user to ${entry[i].changes}\``) })
+                        .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} changed a user to ${entry[i].changes}\``) })
                         .setTimestamp(entry[i].createdTimestamp)
                         .setFooter('Mera Bot By Basim');
                     message.channel.send(embed);
