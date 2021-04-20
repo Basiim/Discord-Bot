@@ -158,13 +158,6 @@ client.on('message', async msg => {
 /// Logs
 client.on('message', async(message) => {
     if (message.content === 'bot logs') {
-        const logs = message.guild.channels.cache.find(channel => channel.name === "logs");
-        if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
-            message.guild.createChannel('logs', 'text');
-        }
-        if (!message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
-            console.log('The logs channel does not exist and tried to create the channel but I am lacking permissions')
-        }
         var entry = await message.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.array())
         var i = 0;
         const d2 = new Date();
@@ -187,6 +180,7 @@ client.on('message', async(message) => {
             }
             i++;
         }
+        console.log(i);
         entry = await message.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.array())
         i = 0;
         message.channel.send('`========MOVE LOGS========`');
@@ -199,6 +193,25 @@ client.on('message', async(message) => {
                         .setColor('#0099ff')
                         .setAuthor('Move Logs', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
                         .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} moved a user to ${entry[i].extra.channel.name}\``) })
+                        .setTimestamp(entry[i].createdTimestamp)
+                        .setFooter('Mera Bot By Basim');
+                    message.channel.send(embed);
+                }
+                i++;
+            }
+        }
+        entry = await message.guild.fetchAuditLogs({ type: 'MEMBER_UPDATE' }).then(audit => audit.entries.array())
+        i = 0;
+        message.channel.send('`========UPDATE LOGS========`');
+        while (entry[i]) {
+            if (entry[i].action == 'MEMBER_MOVE') {
+                d1 = new Date(entry[i].createdTimestamp);
+                date1 = d1.toDateString();
+                if (date1 == date2) {
+                    const embed = new Discord.MessageEmbed()
+                        .setColor('#0099ff')
+                        .setAuthor('Move Logs', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                        .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} moved a user to ${entry[i].changes}\``) })
                         .setTimestamp(entry[i].createdTimestamp)
                         .setFooter('Mera Bot By Basim');
                     message.channel.send(embed);
@@ -350,6 +363,7 @@ client.on('message', msg => {
         //}
         const channel = msg.guild.channels.cache.get('783632677793562684');
         channel.members.forEach(member => {
+            console.log(member.roles.highest.name);
             if (member.roles.highest.name == "Jail") {
                 //Rest of your code
                 member.voice.setMute(true);
