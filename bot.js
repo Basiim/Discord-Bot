@@ -200,7 +200,7 @@ client.on('message', async(message) => {
                 i++;
             }
         }
-        entry = await message.guild.fetchAuditLogs({ type: 'MEMBER_UPDATE' }).then(audit => audit.entries.array())
+        /*entry = await message.guild.fetchAuditLogs({ type: 'MEMBER_UPDATE' }).then(audit => audit.entries.array())
         i = 0;
         message.channel.send('`========UPDATE LOGS========`');
         while (entry[i]) {
@@ -218,7 +218,7 @@ client.on('message', async(message) => {
                 }
                 i++;
             }
-        }
+        }*/
         message.channel.send('`========END LOGS========`');
     }
 });
