@@ -210,8 +210,8 @@ client.on('message', async(message) => {
                 if (date1 == date2) {
                     const embed = new Discord.MessageEmbed()
                         .setColor('#0099ff')
-                        .setAuthor('Move Logs', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
-                        .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} changed a user to ${entry[i].changes}\``) })
+                        .setAuthor('Update Logs', 'https://i.imgur.com/L04qJk6.png', 'https://basimabdullahtariq.azurewebsites.net/')
+                        .addFields({ name: 'Logs', value: (`\`${entry[i].executor.username} changed name from ${entry[i].changes[i].old} to ${entry[i].changes[i].new}\``) })
                         .setTimestamp(entry[i].createdTimestamp)
                         .setFooter('Mera Bot By Basim');
                     message.channel.send(embed);
