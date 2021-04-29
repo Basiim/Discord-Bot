@@ -175,7 +175,8 @@ module.exports = async function(msg) {
             }
         })
         setTimeout(function() {
-            client.channels.cache.get('806436951561076736').send("check jail");
+            //client.channels.cache.get('806436951561076736').send("check jail");
+            msg.channel.send("check jail");
         }, 10000);
     }
     if (msg.content.startsWith("bot gif")) {
